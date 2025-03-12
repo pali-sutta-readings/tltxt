@@ -1,0 +1,90 @@
+#tltxt-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 20px auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.modal-header {
+    background-color: #007A50;
+    color: white;
+    padding: 0 0 10px 0;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.modal-header h2 {
+    margin-top: 0;
+}
+.modal-body {
+    padding: 20px;
+}
+.modal-footer {
+    background-color: #e5e5e5;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+#okButton {
+    background-color: #409614;
+    color: white;
+}
+#cancelButton {
+    background-color: #D93526;
+    color: white;
+    margin-left: 10px;
+}
+
+/* Two-columns layout */
+.two-columns {
+    display: flex;
+    justify-content: space-between;
+}
+.column {
+    flex-basis: 45%;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+input[type="number"], select {
+    width: 100%;
+    margin-bottom: 10px;
+}
+textarea {
+    width: 100%;
+    margin-top: 10px;
+}
+@media screen and (max-width: 768px) {
+    .two-columns {
+        flex-direction: column;
+    }
+    .column {
+        flex-basis: 100%;
+        margin-bottom: 10px;
+    }
+}

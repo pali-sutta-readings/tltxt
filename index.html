@@ -3,11 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/tltxt.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TLTXT</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <div id="tltxt-modal-wrap">
+      <div id="tltxt-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>TLTXT Settings</h2>
+          </div>
+          <div class="modal-body">
+            <div class="two-columns">
+              <div class="column">
+                <label for="start_pos_x">Start at position X:</label>
+                <input type="number" id="start_pos_x" value="0">
+
+                <label for="start_pos_y">Start at position Y:</label>
+                <input type="number" id="start_pos_y" value="0">
+
+                <label for="space_x">Word spacing (px):</label>
+                <input type="number" id="space_x" value="0">
+
+                <label for="space_y">Line spacing (px):</label>
+                <input type="number" id="space_y" value="0">
+              </div>
+
+              <div class="column">
+                <label for="wrap_text">Wrap text:</label>
+                <input type="checkbox" id="wrap_text" checked>
+
+                <label for="text_max_char_width">Text wrap characters width:</label>
+                <input type="number" id="text_max_char_width" value="0">
+
+                <label for="add_blank_lines">Add blank lines:</label>
+                <input type="checkbox" id="add_blank_lines">
+
+                <label for="text_size_style">Text size:</label>
+                <select id="text_size_style">
+                  <option value="l">Large</option>
+                  <option value="m" selected>Medium</option>
+                  <option value="s">Small</option>
+                  <option value="xl">Extra Large</option>
+                </select>
+              </div>
+            </div>
+
+            <label for="insert_text">Text to insert:</label><br>
+            <textarea id="insert_text" rows="10" cols="40"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button id="cancelButton">Cancel</button>
+            <button id="okButton">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
