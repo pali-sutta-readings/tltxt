@@ -1,0 +1,149 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    color: white;
+    background-color: hsl(224, 25%, 40%);
+    padding: 15px;
+}
+
+.header {
+    font-size: 0.9em;
+}
+
+.header img {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+}
+
+.header b {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    border-radius: 50%;
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+.header code {
+    font-family: sans;
+    background-color: hsl(224, 25%, 80%);
+    color: black;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+span.site-title {
+    font-size: 1.3em;
+    font-style: bold;
+    text-decoration: underline;
+}
+
+a.bm-link {
+    background-color: hsl(200, 100%, 68.8%);
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.tldraw-editor {
+    height: 600px;
+    overflow: hidden;
+    resize: both;
+}
+
+#tltxt-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    color: black;
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 20px auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.modal-header {
+    background-color: #007A50;
+    color: white;
+    padding: 0 0 10px 0;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.modal-header h2 {
+    margin-top: 0;
+}
+.modal-body {
+    padding: 20px;
+}
+.modal-footer {
+    background-color: #e5e5e5;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+#okButton {
+    background-color: #409614;
+    color: white;
+}
+#cancelButton {
+    background-color: #D93526;
+    color: white;
+    margin-left: 10px;
+}
+
+/* Two-columns layout */
+.two-columns {
+    display: flex;
+    justify-content: space-between;
+}
+.column {
+    flex-basis: 45%;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+input[type="number"], select {
+    width: 100%;
+    margin-bottom: 10px;
+}
+textarea {
+    width: 100%;
+    margin-top: 10px;
+}
+@media screen and (max-width: 768px) {
+    .two-columns {
+        flex-direction: column;
+    }
+    .column {
+        flex-basis: 100%;
+        margin-bottom: 10px;
+    }
+}
