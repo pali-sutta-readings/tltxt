@@ -13,6 +13,11 @@ body {
     font-size: 0.9em;
 }
 
+.header a:link,
+.header a:visited {
+    color: hsl(200, 100%, 75%);
+}
+
 .header img {
   width: 1.5em;
   height: 1.5em;
@@ -44,8 +49,10 @@ span.site-title {
     text-decoration: underline;
 }
 
-a.bm-link {
-    background-color: hsl(200, 100%, 68.8%);
+a.bm-link:link,
+a.bm-link:visited {
+    color: hsl(240, 100%, 46%);
+    background-color: hsl(200, 100%, 68%);
     border-radius: 4px;
     padding: 4px;
 }
