@@ -67,10 +67,14 @@ function reflow_text(text: string, max_width = 60, add_blank_lines = false): str
 function tldraw_text_insert(text: string, editor: Editor): void {
     let lines = [];
 
+    text = text.trim();
+
     if (WRAP_TEXT) {
         lines = reflow_text(text, TEXT_MAX_CHAR_WIDTH, ADD_BLANK_LINES).split("\n");
     } else {
-        lines = text.split("\n");
+        // Split the lines and eliminate empty items
+        // "one\n\ntwo".split("\n") => [ "one", "", "two" ]
+        lines = text.split("\n").filter(e => e);
     }
 
     let cur_x = START_POS_X;

@@ -12,10 +12,25 @@ import {
   useTools,
 } from 'tldraw'
 
-import 'tldraw/tldraw.css'
-// import './App.css'
+// tldraw.css already included in index.css
+// import 'tldraw/tldraw.css'
 
 import { TltxtTool } from './tltxt-tool'
+
+import declensions_legend_code from './declensions-legend-bookmarklet.js?raw';
+
+// https://github.com/chimurai/bookmarklet/blob/gh-pages/js/bookmarklet.js
+const BOOKMARKLET = {
+    HEADER: 'javascript:(async function(){',
+    FOOTER: '})()'
+}
+
+function createBookmarkletUri(sourceCode: string): string {
+    const reStripComments = /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm
+    const bookmarklet = `${BOOKMARKLET.HEADER}${sourceCode.replace(reStripComments, '$1')}${BOOKMARKLET.FOOTER}`
+    const bookmarkletEncoded = encodeURI(bookmarklet)
+    return bookmarkletEncoded;
+}
 
 // Based on the tutorial:
 // https://tldraw.dev/examples/ui/add-tool-to-toolbar
@@ -68,13 +83,17 @@ const customTools = [TltxtTool]
 
 function App() {
   return (
-    <div style={{ position: 'fixed', inset: 0 }}>
+    <div className="tldraw-editor">
       <Tldraw
         tools={customTools}
         initialState="tltxt"
         overrides={uiOverrides}
         components={components}
         assetUrls={customAssetUrls}
+        onMount={() => {
+          const link_el = document.getElementById('declensions-bookmarklet') as HTMLElement;
+          link_el.setAttribute(('href'), createBookmarkletUri(declensions_legend_code));
+        }}
       />
     </div>
   )

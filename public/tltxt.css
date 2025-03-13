@@ -1,3 +1,61 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    color: white;
+    background-color: hsl(224, 25%, 40%);
+    padding: 15px;
+}
+
+.header {
+    font-size: 0.9em;
+}
+
+.header img {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+}
+
+.header b {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    border-radius: 50%;
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+.header code {
+    font-family: sans;
+    background-color: hsl(224, 25%, 80%);
+    color: black;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+span.site-title {
+    font-size: 1.3em;
+    font-style: bold;
+    text-decoration: underline;
+}
+
+a.bm-link {
+    background-color: hsl(200, 100%, 68.8%);
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.tldraw-editor {
+    height: 600px;
+    overflow: hidden;
+    resize: both;
+}
+
 #tltxt-modal {
     display: none;
     position: fixed;
@@ -8,6 +66,7 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
+    color: black;
 }
 .modal-content {
     background-color: #fefefe;
