@@ -558,15 +558,23 @@ function create_legend_div() {
     background-color: hsl(224, 40%, 40%);
 }
 
-#legend.light {
+#legend.light,
+#legend.light .icon {
     background-color: #FCFCFC;
     color: black;
+}
+
+#legend.light {
     border: 1px solid #E8E8E8;
 }
 
-#legend.dark {
+#legend.dark,
+#legend.dark .icon {
     background-color: #202025;
     color: white;
+}
+
+#legend.dark {
     border: 1px solid #333333;
 }
 
@@ -587,13 +595,13 @@ function create_legend_div() {
 }
 
 .icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
-  vertical-align: middle;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+    vertical-align: middle;
 }
 </style>
 <div id="legend" class="light">
