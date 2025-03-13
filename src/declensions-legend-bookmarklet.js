@@ -1,5 +1,6 @@
-const LEGEND_WHITE_URL = "https://profound-labs.github.io/tltxt/cases-legend-white-large.png";
-const LEGEND_BLACK_URL = "https://profound-labs.github.io/tltxt/cases-legend-black-large.png";
+// Prefixed with /tltxt/ because it is served as a gh-pages project page.
+const LEGEND_WHITE_URL = "https://pali-sutta-readings.github.io/tltxt/static/cases-legend-white-large.png";
+const LEGEND_BLACK_URL = "https://pali-sutta-readings.github.io/tltxt/static/cases-legend-black-large.png";
 
 function create_legend_div() {
   var wrap_div = document.createElement('div');
@@ -20,15 +21,23 @@ function create_legend_div() {
     background-color: hsl(224, 40%, 40%);
 }
 
-#legend.light {
+#legend.light,
+#legend.light .icon {
     background-color: #FCFCFC;
     color: black;
+}
+
+#legend.light {
     border: 1px solid #E8E8E8;
 }
 
-#legend.dark {
+#legend.dark,
+#legend.dark .icon {
     background-color: #202025;
     color: white;
+}
+
+#legend.dark {
     border: 1px solid #333333;
 }
 
@@ -49,13 +58,13 @@ function create_legend_div() {
 }
 
 .icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
-  vertical-align: middle;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+    vertical-align: middle;
 }
 </style>
 <div id="legend" class="light">
