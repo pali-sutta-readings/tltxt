@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 TLTXT is a small Vite + React + TypeScript page that embeds a tldraw whiteboard with one extra toolbar tool, `tltxt`. The tool opens a settings modal pre-filled with the clipboard text; on OK it splits the text into words and creates one tldraw text shape per word, laid out in lines with configurable spacing. The user then selects all, copies, and pastes the shapes into a board on tldraw.com, where each word can be selected on its own.
 
+The page also offers a second, independent feature: the **Declensions bookmarklet**, a link the user drags to their bookmarks bar and clicks on tldraw.com to show a floating legend image of the colors used for the Pāli declension cases. See "Declensions bookmarklet" below.
+
 Published at <https://pali-sutta-readings.github.io/tltxt/>.
 
 tldraw is the stock npm package (`tldraw` ^3.15.6, pinned to the 3.x line — see below), customized only through its public extension points (`tools`, `overrides`, `components`, `assetUrls`). There is no patched copy of the library in this repo. `../tldraw` is a clean upstream checkout kept for reading the source; don't edit it expecting the app to change.
@@ -66,8 +68,23 @@ The OK and Cancel handlers are set inside `onPointerDown` by assigning `onclick`
 
 **Layout (`tldraw_text_insert`)** is measurement-driven: each word is created as a shape, then `editor.getShapePageBounds()` gives its real width, and the next word starts at `maxX + SPACE_X`. The next line starts at the last shape's `maxY + SPACE_Y`. `reflow_text()` does the optional wrapping beforehand by character count, keeping existing line breaks within a paragraph (for verse). Color is deliberately left unset so shapes take the current palette color and work in both light and dark themes.
 
-**Declensions bookmarklet (`src/declensions-legend-bookmarklet.js`)** is unrelated to the tool: a draggable legend of Pāli declension cases meant to run on tldraw.com. `App.tsx` imports the file with `?raw`, strips comments with a regex, wraps it in `javascript:(async function(){...})()`, URI-encodes it, and sets it as the `href` of the `#declensions-bookmarklet` link in `index.html` on mount. So that file:
+## Declensions bookmarklet
+
+Unrelated to the `tltxt` tool and to the tldraw editor on this page. Readers color-code words on a tldraw.com board by declension case; the bookmarklet puts the color legend on screen there, since tldraw.com itself can't be customized.
+
+**What the user sees.** The intro text in `index.html` has a "Declensions" link (`#declensions-bookmarklet`, class `bm-link`) to drag to the bookmarks bar. Clicking the bookmark on any page appends a small floating panel (`#legend`, bottom right, 125px wide) containing the legend image. The panel can be dragged by its header or image and resized from its corner. The lightbulb button swaps between the white and black image and the matching panel colors, for tldraw's light and dark themes; the × button hides it. Clicking the bookmark again re-shows the same panel rather than creating a second one.
+
+**Pieces.**
+
+- `src/declensions-legend-bookmarklet.js` — the whole bookmarklet: CSS, markup and inline SVG icons in one template literal, plus the drag, close and theme handlers
+- `public/static/cases-legend-white-large.png`, `cases-legend-black-large.png` — the legend images, loaded by the bookmarklet from the published site by absolute URL
+- `createBookmarkletUri()` in `src/App.tsx` — turns the source into the link's `href`
+- `.bm-link` in `public/static/tltxt.css` — the link's button styling
+
+**How the link is built.** `App.tsx` imports the file with `?raw`, strips comments with a regex, wraps it in `javascript:(async function(){...})()`, URI-encodes it, and sets it as the `href` in the `Tldraw` `onMount` callback. In `index.html` the `href` is only a `#` placeholder, so the link does nothing until the editor has mounted. So that file:
 
 - is plain JS, never bundled, transpiled or linted (eslint only covers `ts`/`tsx`), and must run standalone on a foreign page
-- must survive naive comment stripping — a `//` inside a string or template literal is cut unless preceded by `:` or `\`
+- must survive naive comment stripping — a `//` inside a string or template literal is cut unless preceded by `:` or `\` (which is what keeps the `https://` URLs intact)
 - can't import anything or use relative asset URLs
+
+**Installed copies are snapshots.** A bookmark holds the code as it was when the user dragged the link, so a change to the bookmarklet reaches only people who drag it again. The images are the exception: they are fetched from the published site on every use, so replacing a PNG under the same name updates everyone, while renaming or moving one breaks every bookmark already installed.

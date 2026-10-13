@@ -142,6 +142,13 @@ function dragElement(elmnt, drag_ids = []) {
 
   function dragMouseDown(e) {
     e.preventDefault();
+    // The legend starts out anchored with bottom/right. Switch to top/left
+    // before moving, otherwise top and bottom are both set and the box
+    // stretches between them instead of moving.
+    elmnt.style.top = elmnt.offsetTop + "px";
+    elmnt.style.left = elmnt.offsetLeft + "px";
+    elmnt.style.bottom = "auto";
+    elmnt.style.right = "auto";
     // get the mouse cursor position at startup:
     pos3 = e.clientX;
     pos4 = e.clientY;
