@@ -1,4 +1,4 @@
-import { StateNode, Editor, TLShapeId, createShapeId, toRichText } from 'tldraw'
+import { StateNode, Editor, TLDefaultSizeStyle, TLShapeId, createShapeId, toRichText } from 'tldraw'
 
 let START_POS_X = 200;
 let START_POS_Y = 100;
@@ -6,7 +6,7 @@ let SPACE_X = 35;
 let SPACE_Y = 120;
 let WRAP_TEXT = false;
 let TEXT_MAX_CHAR_WIDTH = 80;
-let TEXT_SIZE_STYLE = 'm';
+let TEXT_SIZE_STYLE: TLDefaultSizeStyle = 'm';
 let ADD_BLANK_LINES = false;
 let INSERT_TEXT = '';
 
@@ -176,7 +176,7 @@ function set_tltxt_values_and_insert(editor: Editor) {
     WRAP_TEXT = (document.getElementById('wrap_text') as HTMLInputElement).checked;
     TEXT_MAX_CHAR_WIDTH = Number((document.getElementById('text_max_char_width') as HTMLInputElement).value);
 
-    TEXT_SIZE_STYLE = (document.getElementById('text_size_style') as HTMLInputElement).value;
+    TEXT_SIZE_STYLE = (document.getElementById('text_size_style') as HTMLInputElement).value as TLDefaultSizeStyle;
     ADD_BLANK_LINES = (document.getElementById('add_blank_lines') as HTMLInputElement).checked;
     INSERT_TEXT = (document.getElementById('insert_text') as HTMLInputElement).value;
 

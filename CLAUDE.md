@@ -8,7 +8,22 @@ TLTXT is a small Vite + React + TypeScript page that embeds a tldraw whiteboard 
 
 Published at <https://pali-sutta-readings.github.io/tltxt/>.
 
-tldraw is the stock npm package (`tldraw` ^3.10.1), customized only through its public extension points (`tools`, `overrides`, `components`, `assetUrls`). There is no patched copy of the library in this repo. `../tldraw` is a clean upstream checkout kept for reading the source; don't edit it expecting the app to change.
+tldraw is the stock npm package (`tldraw` ^3.15.6, pinned to the 3.x line — see below), customized only through its public extension points (`tools`, `overrides`, `components`, `assetUrls`). There is no patched copy of the library in this repo. `../tldraw` is a clean upstream checkout kept for reading the source; don't edit it expecting the app to change.
+
+## Stay on tldraw 3.x (licensing)
+
+Do not upgrade `tldraw` past the 3.x line. `npm install tldraw@latest` and `npm view tldraw version` point at 5.x; use `npm install tldraw@^3` instead.
+
+From 4.0 on, the SDK requires a license key in production. On an HTTPS, non-localhost host (which is what the GitHub Pages site is) an unlicensed editor logs errors and stops rendering after five seconds. It keeps working on `localhost`, so `npm run dev` and `npm run preview` look fine and the breakage only shows after deploying. The keys are tied to a domain and expire: trial is 100 days, the free hobby license is granted at tldraw's discretion and needs renewing.
+
+In 3.x a missing key only adds the "made with tldraw" watermark, which is how the site runs today.
+
+An upgrade to 5.5.2 was tried in October 2026 and reverted for this reason. The code itself ported with two small changes, for whenever a license key is available:
+
+- `editor.inputs.currentPagePoint` becomes `editor.inputs.getCurrentPagePoint()` (the property is deprecated in 5.x; the method does not exist in 3.x)
+- React must be `^19.2.1` and Node `>=22.12.0`
+
+`../tldraw` is at 3.9.0; the source matching the installed version is in `node_modules/tldraw/src` and `node_modules/@tldraw/editor/src`.
 
 ## Commands
 
