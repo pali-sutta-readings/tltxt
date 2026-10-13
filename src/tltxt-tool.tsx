@@ -4,7 +4,7 @@ let START_POS_X = 200;
 let START_POS_Y = 100;
 let SPACE_X = 35;
 let SPACE_Y = 120;
-let WRAP_TEXT = true;
+let WRAP_TEXT = false;
 let TEXT_MAX_CHAR_WIDTH = 80;
 let TEXT_SIZE_STYLE = 'm';
 let ADD_BLANK_LINES = false;
@@ -69,12 +69,18 @@ function tldraw_text_insert(text: string, editor: Editor): void {
 
     text = text.trim();
 
+    // Nothing to insert, don't create an empty text shape.
+    if (!text) {
+        return;
+    }
+
     if (WRAP_TEXT) {
         lines = reflow_text(text, TEXT_MAX_CHAR_WIDTH, ADD_BLANK_LINES).split("\n");
     } else {
         // Split the lines and eliminate empty items
         // "one\n\ntwo".split("\n") => [ "one", "", "two" ]
-        lines = text.split("\n").filter(e => e);
+        // Trim them, an indented line would start with an empty word.
+        lines = text.split("\n").map(e => e.trim()).filter(e => e);
     }
 
     let cur_x = START_POS_X;
@@ -200,27 +206,43 @@ export class TltxtTool extends StateNode {
 
         const the_editor = this.editor;
 
-        const ok_btn = modal.querySelector('#okButton');
+        // Assign onclick instead of addEventListener(), so that repeated uses
+        // of the tool replace the handler instead of adding another one.
+        const ok_btn = modal.querySelector<HTMLButtonElement>('#okButton');
         if (ok_btn) {
-            ok_btn.addEventListener('click', function () { set_tltxt_values_and_insert(the_editor) });
+            ok_btn.onclick = function () { set_tltxt_values_and_insert(the_editor) };
         } else {
             alert("Missing OK button");
         }
 
-        const cancel_btn = modal.querySelector('#cancelButton');
+        const cancel_btn = modal.querySelector<HTMLButtonElement>('#cancelButton');
         if (cancel_btn) {
-            cancel_btn.addEventListener('click', close_modal);
+            cancel_btn.onclick = function () {
+                close_modal();
+                // The tool is still active, show its cursor again.
+                the_editor.setCursor({ type: 'cross', rotation: 0 });
+            };
         } else {
             alert("Missing Cancel button");
         }
 
+        const show_form = () => {
+            update_tltxt_form();
+            this.editor.setCursor({ type: 'default' });
+            open_modal();
+        };
+
+        // Open the modal even when the clipboard can't be read (permission
+        // denied, or no Clipboard API), keeping the previous text.
+        if (!navigator.clipboard?.readText) {
+            show_form();
+            return;
+        }
+
         navigator.clipboard
             .readText()
-            .then((text) => {
-                INSERT_TEXT = text;
-                update_tltxt_form();
-                this.editor.setCursor({ type: 'default' });
-                open_modal();
-            });
+            .then((text) => { INSERT_TEXT = text; })
+            .catch(() => { })
+            .then(show_form);
     }
 }
